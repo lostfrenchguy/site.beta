@@ -1,0 +1,1297 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>COLD FEET — lost french guy, cold places</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Fraunces:opsz,ital,wght@9..144,0,400;9..144,0,500;9..144,1,400;9..144,1,500&family=Spline+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --black:#0c0c0e; --ink:#15151a; --fog:#e8e6e1; --paper:#f3f1ec;
+    --mist:#a8acae; --stone:#5c5f63; --ice:#9fb4bd; --rust:#b5573a;
+    --line:rgba(255,255,255,.13); --line-d:rgba(20,20,25,.14);
+    --cine:'Bebas Neue',Impact,sans-serif;
+    --edito:'Fraunces',Georgia,serif;
+    --body:'Spline Sans',system-ui,sans-serif;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  body{font-family:var(--body);background:var(--black);color:var(--fog);
+    -webkit-tap-highlight-color:transparent;overflow-x:hidden;}
+  img{display:block;max-width:100%;}
+  a{color:inherit;text-decoration:none;}
+  .grain:before{
+    content:"";position:fixed;inset:0;z-index:9;pointer-events:none;opacity:.42;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    mix-blend-mode:overlay;}
+  .topnav{position:fixed;top:0;left:0;right:0;z-index:20;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:18px 26px;mix-blend-mode:difference;}
+  .logo{font-family:var(--cine);font-size:23px;letter-spacing:3px;color:#fff;
+    cursor:default;user-select:none;line-height:1;}
+  .navlinks{display:flex;gap:20px;}
+  .navlinks a{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#fff;
+    font-weight:500;cursor:pointer;transition:opacity .2s;}
+  .navlinks a:hover{opacity:.55;}
+  @media(max-width:620px){
+    .navlinks{gap:13px;}.navlinks a{letter-spacing:1.5px;font-size:10px;}
+    .topnav{padding:16px 18px;}
+  }
+  .hero{position:relative;height:100svh;min-height:560px;width:100%;
+    display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden;}
+  .hero-photo{position:absolute;inset:0;background:var(--ink);}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;opacity:.82;}
+  .hero-grad{position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(8,8,10,.5) 0%,rgba(8,8,10,0) 28%,rgba(8,8,10,.2) 55%,rgba(8,8,10,.93) 100%);}
+  .hero-inner{position:relative;z-index:2;padding:0 26px 58px;max-width:1100px;}
+  .hero-kicker{font-size:11px;letter-spacing:4px;text-transform:uppercase;color:var(--ice);
+    margin-bottom:16px;opacity:0;animation:rise .9s .2s ease forwards;}
+  .hero-title{font-family:var(--cine);font-size:clamp(58px,15vw,164px);line-height:.86;
+    letter-spacing:1px;color:#fff;text-transform:uppercase;}
+  .hero-title span{display:block;opacity:0;animation:rise 1s ease forwards;}
+  .hero-title span:nth-child(1){animation-delay:.3s;}
+  .hero-title span:nth-child(2){animation-delay:.42s;color:var(--mist);}
+  .hero-sub{margin-top:22px;font-family:var(--edito);font-style:italic;
+    font-size:clamp(15px,2.4vw,21px);color:var(--fog);max-width:520px;
+    line-height:1.55;opacity:0;animation:rise 1s .7s ease forwards;}
+  .scroll-cue{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:2;
+    font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--mist);
+    opacity:0;animation:fade 1s 1.1s ease forwards;}
+  .scroll-cue:after{content:"";display:block;width:1px;height:34px;margin:8px auto 0;
+    background:linear-gradient(var(--mist),transparent);animation:cue 1.8s infinite;}
+  @keyframes rise{from{opacity:0;transform:translateY(26px);}to{opacity:1;transform:none;}}
+  @keyframes fade{to{opacity:1;}}
+  @keyframes cue{0%,100%{transform:scaleY(.4);opacity:.3;}50%{transform:scaleY(1);opacity:1;}}
+  .marquee{border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+    overflow:hidden;white-space:nowrap;padding:14px 0;background:var(--ink);}
+  .marquee div{display:inline-block;font-family:var(--cine);font-size:26px;letter-spacing:2px;
+    color:var(--stone);animation:slide 30s linear infinite;}
+  .marquee span{margin:0 26px;}
+  .marquee span.hot{color:var(--rust);}
+  @keyframes slide{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+
+  /* START HERE — Read / Cook / Go */
+  .starthere{max-width:1100px;margin:0 auto;padding:64px 26px 20px;}
+  .start-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  @media(max-width:680px){.start-grid{grid-template-columns:1fr;}}
+  .start-card{position:relative;border:1px solid var(--line);overflow:hidden;
+    min-height:230px;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:22px;cursor:pointer;transition:transform .3s ease;}
+  .start-card:hover{transform:translateY(-4px);}
+  .start-card img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.5;
+    transition:opacity .3s,transform .5s;}
+  .start-card:hover img{opacity:.62;transform:scale(1.05);}
+  .start-card:before{content:"";position:absolute;inset:0;
+    background:linear-gradient(180deg,rgba(8,8,10,.1),rgba(8,8,10,.85));}
+  .start-card>*{position:relative;z-index:2;}
+  .start-num{font-family:var(--cine);font-size:30px;color:var(--rust);line-height:1;}
+  .start-card h3{font-family:var(--cine);font-size:34px;letter-spacing:1.5px;
+    color:#fff;text-transform:uppercase;margin-top:6px;}
+  .start-card p{font-size:13px;color:var(--mist);margin-top:6px;line-height:1.5;}
+
+  .section{padding:72px 26px;max-width:1100px;margin:0 auto;}
+  .sec-head{margin-bottom:36px;}
+  .sec-num{font-size:11px;letter-spacing:3px;color:var(--rust);font-weight:600;}
+  .sec-title{font-family:var(--cine);font-size:clamp(40px,9vw,86px);line-height:.9;
+    text-transform:uppercase;color:#fff;margin-top:6px;}
+  .sec-intro{font-family:var(--edito);font-style:italic;color:var(--mist);
+    font-size:16px;max-width:540px;margin-top:14px;line-height:1.55;}
+
+  /* JOURNAL */
+  .journal-list{display:flex;flex-direction:column;}
+  .entry{display:grid;grid-template-columns:118px 1fr;gap:20px;
+    padding:26px 0;border-top:1px solid var(--line);cursor:pointer;
+    transition:padding-left .25s ease;}
+  .entry:hover{padding-left:10px;}
+  .entry:last-child{border-bottom:1px solid var(--line);}
+  .entry-meta{padding-top:5px;}
+  .entry-format{font-size:10px;letter-spacing:1.5px;color:var(--rust);text-transform:uppercase;font-weight:600;}
+  .entry-date{font-size:11px;letter-spacing:1px;color:var(--stone);text-transform:uppercase;margin-top:4px;}
+  .entry-title{font-family:var(--edito);font-size:clamp(20px,4vw,27px);line-height:1.18;color:#fff;}
+  .entry-mood{font-size:12.5px;color:var(--ice);margin-top:8px;font-style:italic;font-family:var(--edito);}
+  .entry-body{grid-column:2/3;max-height:0;overflow:hidden;
+    transition:max-height .45s ease,margin-top .3s ease;}
+  .entry.open .entry-body{max-height:900px;margin-top:14px;}
+  .entry-body img{border-radius:10px;margin-bottom:12px;width:100%;height:240px;object-fit:cover;}
+  .entry-body p{font-size:14.5px;line-height:1.7;color:var(--mist);}
+  .entry-admin{display:flex;gap:6px;margin-top:14px;flex-wrap:wrap;}
+  .entry-admin button{background:none;border:1px solid var(--line);color:var(--mist);
+    font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:6px 10px;
+    cursor:pointer;font-family:var(--body);}
+  .journal-empty{border:1px solid var(--line);border-radius:4px;padding:54px 26px;
+    text-align:center;}
+  .journal-empty .je-mark{font-family:var(--cine);font-size:22px;letter-spacing:3px;
+    color:var(--stone);}
+  .journal-empty p{font-family:var(--edito);font-style:italic;color:var(--mist);
+    font-size:15px;margin-top:10px;}
+  .je-btn{margin-top:18px;background:var(--rust);color:#fff;border:none;
+    padding:11px 20px;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+    font-weight:600;cursor:pointer;font-family:var(--body);}
+  @media(max-width:560px){
+    .entry{grid-template-columns:1fr;gap:8px;}
+    .entry-body{grid-column:1/2;}
+  }
+
+  /* MOUNTAIN KITCHEN */
+  .recipe-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  @media(max-width:680px){.recipe-grid{grid-template-columns:1fr;}}
+  .rcard{background:var(--ink);border:1px solid var(--line);overflow:hidden;
+    cursor:pointer;transition:transform .3s ease,border-color .3s ease;}
+  .rcard:hover{transform:translateY(-4px);border-color:rgba(255,255,255,.3);}
+  .rcard-photo{height:260px;position:relative;background:#1d2226;}
+  .rcard-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;}
+  .rcard-noimg{position:absolute;inset:0;display:flex;align-items:flex-end;padding:14px;
+    font-size:10.5px;letter-spacing:2px;text-transform:uppercase;color:var(--stone);
+    background:repeating-linear-gradient(135deg,#1d2226,#1d2226 14px,#191d20 14px,#191d20 28px);}
+  .rcard-tag{position:absolute;top:14px;left:14px;z-index:3;background:var(--rust);color:#fff;
+    font-size:10px;letter-spacing:1.5px;text-transform:uppercase;padding:4px 9px;font-weight:600;}
+  .rcard-body{padding:18px 18px 22px;}
+  .rcard-body h3{font-family:var(--edito);font-size:21px;line-height:1.22;color:#fff;}
+  .rcard-meta{font-size:11.5px;color:var(--stone);margin-top:10px;letter-spacing:.5px;}
+  .rcard-desc{font-size:13px;color:var(--mist);font-style:italic;margin-top:8px;line-height:1.5;}
+  .rcard-best{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--ice);
+    margin-top:10px;}
+  .rcard-best b{color:var(--rust);font-weight:600;}
+  .rdetail{max-height:0;overflow:hidden;transition:max-height .45s ease;}
+  .rcard.open .rdetail{max-height:1600px;border-top:1px solid var(--line);margin-top:14px;padding-top:12px;}
+  .rdetail h4{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--rust);margin:10px 0 5px;}
+  .rdetail .lines{font-size:13px;line-height:1.65;color:var(--mist);white-space:pre-wrap;}
+  .rshare{margin-top:14px;font-size:10.5px;letter-spacing:2px;text-transform:uppercase;
+    color:var(--ice);background:none;border:1px solid var(--line);
+    padding:7px 13px;cursor:pointer;font-family:var(--body);}
+
+  /* PLACES */
+  .spot-list{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);
+    border:1px solid var(--line);}
+  @media(max-width:680px){.spot-list{grid-template-columns:1fr;}}
+  .spot{background:var(--ink);display:flex;flex-direction:column;transition:background .25s;}
+  .spot:hover{background:#1b1f22;}
+  .spot-img{width:100%;height:150px;object-fit:cover;background:#1d2226;}
+  .spot-txt{padding:16px 16px 18px;}
+  .spot-name{font-family:var(--edito);font-size:18px;color:#fff;}
+  .spot-tags{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;}
+  .spot-tag{font-size:9.5px;letter-spacing:1px;text-transform:uppercase;
+    border:1px solid var(--line);padding:4px 8px;color:var(--ice);}
+  .spot-tag.diff-easy{color:#7fa874;border-color:rgba(127,168,116,.4);}
+  .spot-tag.diff-medium{color:#d9a14e;border-color:rgba(217,161,78,.4);}
+  .spot-tag.diff-stupid{color:var(--rust);border-color:rgba(181,87,58,.5);}
+  .spot-desc{font-size:12.5px;color:var(--mist);margin-top:10px;line-height:1.55;}
+  .alps-soon{margin-top:24px;border:1px dashed var(--line);padding:22px;text-align:center;
+    font-family:var(--edito);font-style:italic;color:var(--stone);font-size:14px;}
+
+  /* ABOUT */
+  .about-wrap{display:grid;grid-template-columns:1fr 1fr;gap:30px;align-items:start;}
+  @media(max-width:680px){.about-wrap{grid-template-columns:1fr;}}
+  .about-photo{height:400px;border:1px solid var(--line);object-fit:cover;width:100%;}
+  .about-text .big{font-family:var(--edito);font-style:italic;font-size:20px;color:#fff;line-height:1.5;}
+  .about-text p{font-size:15px;line-height:1.75;color:var(--fog);margin:14px 0;}
+  .about-links{margin-top:18px;display:flex;gap:12px;flex-wrap:wrap;}
+  .about-links a{border:1px solid var(--line);padding:11px 18px;font-size:11px;letter-spacing:2px;
+    text-transform:uppercase;color:#fff;transition:background .2s,color .2s;}
+  .about-links a:hover{background:#fff;color:var(--black);}
+
+  footer{border-top:1px solid var(--line);padding:46px 26px;max-width:1100px;margin:0 auto;
+    display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap;}
+  .foot-logo{font-family:var(--cine);font-size:46px;letter-spacing:2px;color:#fff;line-height:.85;}
+  .foot-tag{font-family:var(--edito);font-style:italic;color:var(--stone);font-size:13px;margin-top:8px;}
+  .foot-ig{font-size:11px;letter-spacing:1.5px;text-transform:uppercase;color:var(--mist);
+    border-bottom:1px solid var(--line);padding-bottom:3px;}
+  .foot-ig:hover{color:var(--ice);}
+
+  .admin-bar{background:var(--rust);color:#fff;padding:10px 16px;display:flex;
+    justify-content:space-between;align-items:center;gap:10px;margin-bottom:22px;
+    font-size:12px;letter-spacing:1px;flex-wrap:wrap;}
+  .admin-bar button{background:#fff;color:var(--rust);border:none;padding:6px 12px;font-size:11px;
+    letter-spacing:1px;text-transform:uppercase;cursor:pointer;font-weight:600;font-family:var(--body);}
+  .rcard-admin{display:flex;gap:6px;padding:0 18px 16px;flex-wrap:wrap;}
+  .rcard-admin button{background:none;border:1px solid var(--line);color:var(--mist);
+    font-size:10px;letter-spacing:1px;text-transform:uppercase;padding:6px 10px;
+    cursor:pointer;font-family:var(--body);}
+
+  .tracker{position:fixed;inset:0;z-index:60;background:var(--paper);color:var(--ink);
+    overflow-y:auto;display:none;}
+  .tracker.on{display:block;}
+  .tracker-head{position:sticky;top:0;background:var(--paper);border-bottom:1px solid var(--line-d);
+    display:flex;justify-content:space-between;align-items:center;padding:16px 20px;z-index:5;}
+  .tracker-head .t{font-family:var(--cine);font-size:22px;letter-spacing:2px;}
+  .tracker-close{background:var(--ink);color:var(--paper);border:none;width:34px;height:34px;
+    border-radius:50%;cursor:pointer;font-size:16px;}
+  .tk-wrap{max-width:600px;margin:0 auto;padding:18px 20px 60px;}
+  .tk-nav{display:flex;gap:5px;margin-bottom:18px;}
+  .tk-nav button{flex:1;padding:10px 4px;border:none;border-radius:9px;cursor:pointer;
+    font-family:var(--body);font-weight:600;font-size:12.5px;background:transparent;color:var(--ink);}
+  .tk-nav button.on{background:var(--ink);color:var(--paper);}
+  .tk-card{background:#fff;border:1px solid var(--line-d);border-radius:14px;padding:16px;margin-bottom:14px;}
+  .tk-card.dark{background:var(--ink);color:var(--paper);border:none;}
+  .tk-st{font-size:10.5px;letter-spacing:1px;text-transform:uppercase;color:var(--stone);}
+  .tk-big{font-family:var(--cine);font-size:48px;line-height:1;letter-spacing:1px;}
+  .tk-row{display:flex;gap:8px;margin-bottom:9px;align-items:center;}
+  .tk-card label{font-size:12px;font-weight:600;display:block;margin-bottom:4px;color:var(--ink);}
+  .tk-card input,.tk-card select{padding:9px 11px;border-radius:8px;border:1px solid var(--line-d);
+    font-family:var(--body);font-size:13.5px;width:100%;background:#fff;color:var(--ink);}
+  .tk-btn{padding:9px 15px;border-radius:8px;border:none;background:var(--rust);color:#fff;
+    font-weight:600;font-size:13px;cursor:pointer;font-family:var(--body);}
+  .tk-btn.full{width:100%;}
+  .tk-btn.ghost{background:var(--fog);color:var(--ink);}
+  .tk-x{width:28px;height:28px;border-radius:7px;border:none;background:var(--fog);
+    color:var(--rust);cursor:pointer;flex-shrink:0;}
+  .tk-bar{height:7px;background:var(--fog);border-radius:9px;margin-top:8px;overflow:hidden;}
+  .tk-bar>div{height:100%;border-radius:9px;}
+  .tk-seg{display:flex;gap:5px;margin-bottom:10px;}
+  .tk-seg button{flex:1;padding:8px 3px;border-radius:8px;border:1px solid var(--line-d);background:#fff;
+    color:var(--ink);font-weight:600;font-size:11.5px;cursor:pointer;font-family:var(--body);}
+  .tk-seg button.on{background:var(--rust);color:#fff;border-color:var(--rust);}
+  .tk-muted{font-size:11px;color:var(--stone);margin-top:5px;line-height:1.5;}
+  .tk-sect{font-family:var(--edito);font-size:17px;font-weight:600;margin-bottom:10px;
+    display:flex;justify-content:space-between;align-items:baseline;}
+  .tk-acwrap{position:relative;}
+  .tk-aclist{position:absolute;top:100%;left:0;right:0;z-index:9;background:#fff;
+    border:1px solid var(--line-d);border-radius:9px;margin-top:3px;max-height:220px;
+    overflow-y:auto;box-shadow:0 12px 30px -12px rgba(0,0,0,.3);}
+  .tk-acitem{padding:8px 11px;cursor:pointer;font-size:13px;display:flex;
+    justify-content:space-between;border-bottom:1px solid var(--fog);}
+  .tk-acitem:hover,.tk-acitem.hl{background:var(--fog);}
+  .tk-line{display:flex;justify-content:space-between;align-items:center;gap:8px;
+    padding:8px 0;border-bottom:1px dashed var(--line-d);}
+  .tk-empty{font-size:12.5px;color:var(--stone);font-style:italic;}
+  .hidden{display:none;}
+  .tk-modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:70;
+    display:flex;align-items:flex-start;justify-content:center;padding:30px 16px;overflow-y:auto;}
+  .tk-modal{background:var(--paper);border-radius:16px;max-width:540px;width:100%;padding:20px;}
+  .tk-modal h3{font-family:var(--edito);font-size:20px;margin-bottom:12px;}
+</style>
+</head>
+<body class="grain">
+
+<div class="topnav">
+  <div class="logo" id="logo">COLD&nbsp;FEET</div>
+  <nav class="navlinks">
+    <a data-go="journal">Journal</a>
+    <a data-go="kitchen">Kitchen</a>
+    <a data-go="places">Places</a>
+    <a data-go="about">About</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-photo"><img src="images/hero-feet.jpg" alt="" /></div>
+  <div class="hero-grad"></div>
+  <div class="hero-inner">
+    <div class="hero-kicker">Cold places, Europe · @lostfrenchguy</div>
+    <h1 class="hero-title"><span>Cold mountains,</span><span>warm bad ideas.</span></h1>
+    <p class="hero-sub">Lost french guy in the Alps. Bad hikes, questionable meals, worse dating advice.</p>
+  </div>
+  <div class="scroll-cue">Scroll</div>
+</header>
+
+<div class="marquee">
+  <div>
+    <span>Bivouac</span><span class="hot">/</span><span>Coffee at 2000m</span><span class="hot">/</span>
+    <span>Alpine depression</span><span class="hot">/</span><span>Mountain kitchen</span><span class="hot">/</span>
+    <span>Bad dating advice</span><span class="hot">/</span><span>Rain again</span><span class="hot">/</span>
+    <span>Bivouac</span><span class="hot">/</span><span>Coffee at 2000m</span><span class="hot">/</span>
+    <span>Alpine depression</span><span class="hot">/</span><span>Mountain kitchen</span><span class="hot">/</span>
+    <span>Bad dating advice</span><span class="hot">/</span><span>Rain again</span><span class="hot">/</span>
+  </div>
+</div>
+
+<!-- START HERE : Read / Cook / Go -->
+<section class="starthere">
+  <div class="start-grid">
+    <div class="start-card" data-go="journal">
+      <img src="images/varo-path.jpg" alt="" />
+      <div class="start-num">01</div>
+      <h3>Read</h3>
+      <p>Cold journal entries from the Alps.</p>
+    </div>
+    <div class="start-card" data-go="kitchen">
+      <img src="images/bivouac-fire.jpg" alt="" />
+      <div class="start-num">02</div>
+      <h3>Cook</h3>
+      <p>Mountain meals made after bad decisions.</p>
+    </div>
+    <div class="start-card" data-go="places">
+      <img src="images/refuge.jpg" alt="" />
+      <div class="start-num">03</div>
+      <h3>Go</h3>
+      <p>Spots, routes and questionable ideas.</p>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section class="section" id="journal">
+  <div class="sec-head">
+    <div class="sec-num">01 — Journal</div>
+    <h2 class="sec-title">Notes from<br>too high up</h2>
+    <p class="sec-intro">Short stories about rain, bad decisions, cold coffee and hikes that should have stayed ideas.</p>
+  </div>
+  <div id="journalAdmin"></div>
+  <div class="journal-list" id="journalList"></div>
+</section>
+
+<!-- MOUNTAIN KITCHEN -->
+<section class="section" id="kitchen">
+  <div class="sec-head">
+    <div class="sec-num">02 — Mountain Kitchen</div>
+    <h2 class="sec-title">Meals after<br>bad decisions</h2>
+    <p class="sec-intro">Real food cooked after the hike, or worse, during it. Not cold healthy stuff — actual mountain cooking by someone who's hungry.</p>
+  </div>
+  <div id="recipesAdmin"></div>
+  <div class="recipe-grid" id="recipeGrid"></div>
+</section>
+
+<!-- PLACES -->
+<section class="section" id="places">
+  <div class="sec-head">
+    <div class="sec-num">03 — Places</div>
+    <h2 class="sec-title">Cold places,<br>Europe</h2>
+    <p class="sec-intro">Alps, Iceland, Lofoten. Sunrise spots, bivouacs, and routes I probably shouldn't have taken.</p>
+  </div>
+  <div class="spot-list" id="spotList"></div>
+  <div class="alps-soon">Detailed routes &amp; PDF guides — coming later.</div>
+</section>
+
+<!-- ABOUT -->
+<section class="section" id="about">
+  <div class="sec-head">
+    <div class="sec-num">04 — About</div>
+    <h2 class="sec-title">The lost<br>french guy</h2>
+  </div>
+  <div class="about-wrap">
+    <img class="about-photo" src="images/glacier-sun.jpg" alt="" />
+    <div class="about-text">
+      <p class="big">"A french guy in the Alps making bad hiking decisions, cooking after them, and pretending this counts as emotional growth."</p>
+      <p>Instagram is for the jokes. This place is for the stories, the food, and the cold routes.</p>
+      <div class="about-links">
+        <a href="https://instagram.com/lostfrenchguy" target="_blank" rel="noopener">@lostfrenchguy ↗</a>
+        <a data-go="kitchen">Mountain Kitchen</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div>
+    <div class="foot-logo">COLD&nbsp;FEET</div>
+    <div class="foot-tag">bad ideas, good views — © 2026</div>
+  </div>
+  <a class="foot-ig" href="https://instagram.com/lostfrenchguy" target="_blank" rel="noopener">@lostfrenchguy</a>
+</footer>
+
+<!-- PRIVATE LOG (tracker) -->
+<div class="tracker" id="trackerPanel">
+  <div class="tracker-head">
+    <div class="t">Private log</div>
+    <button class="tracker-close" id="closeTracker">✕</button>
+  </div>
+  <div class="tk-wrap">
+    <div class="tk-nav">
+      <button data-tk="jour" class="on">Jour</button>
+      <button data-tk="poids">Poids</button>
+      <button data-tk="profil">Profil</button>
+    </div>
+    <div id="tk-jour"></div>
+    <div id="tk-poids" class="hidden"></div>
+    <div id="tk-profil" class="hidden"></div>
+  </div>
+</div>
+<div id="modalRoot"></div>
+
+<script>
+"use strict";
+
+/* ====================================================================
+   ADMIN — triple-clic sur le logo COLD FEET.
+   - 1er triple-clic : ouvre la gestion des recettes (code : montagne2026)
+   - une fois admin, re-triple-clic : ouvre le Private log (tracker)
+   ==================================================================== */
+var ADMIN_CODE = "montagne2026";
+
+/* ====================================================================
+   JOURNAL  —  carnet vide. Tu le remplis TOI-MEME depuis le site.
+   --------------------------------------------------------------------
+   Tu n'as RIEN a editer ici a la main.
+   Pour ecrire tes histoires :
+     1. Triple-clic sur le logo COLD FEET  ->  code : montagne2026
+     2. Dans la section Journal, un bandeau admin apparait
+     3. "+ Entree" pour ecrire, "Modifier" / "Monter" / "Supprimer"
+     4. "Exporter le journal" : copie le texte obtenu et colle-le
+        entre les crochets de  var JOURNAL = [ ... ]  ci-dessous,
+        puis renvoie index.html sur GitHub pour publier.
+   Tes brouillons sont sauvegardes automatiquement dans ton navigateur.
+   ==================================================================== */
+var JOURNAL = [];
+
+/* ====================================================================
+   PLACES  —  6 spots. difficulte : "easy" | "medium" | "stupid"
+   Tease seulement : ambiance + niveau + region. Pas la trace complete.
+   ==================================================================== */
+var SPOTS = [
+  {nom:"Refuge under the wall",type:"Refuge",region:"Alps",diff:"medium",
+   img:"images/refuge.jpg",
+   desc:"A hut bolted onto the rock, a glacier right behind. You sleep badly and wake up feeling small."},
+  {nom:"The fire bivouac",type:"Bivouac",region:"Alps",diff:"medium",
+   img:"images/bivouac-fire.jpg",
+   desc:"The spot of the fire and the pink sunset. Silent, wide, perfect for feeling tiny."},
+  {nom:"Passage du Varo",type:"Hike",region:"Alps",diff:"stupid",
+   img:"images/varo-path.jpg",
+   desc:"Unmarked, exposed, vertiginous. The red sign tells you not to. The red sign is right."},
+  {nom:"Haifoss",type:"Waterfall",region:"Iceland",diff:"easy",
+   img:"images/iceland-canyon.jpg",
+   desc:"Water, basalt, a free rainbow. Cold european damp, XXL version."},
+  {nom:"Lofoten — the sheep beach",type:"Coast",region:"Norway",diff:"easy",
+   img:"images/lofoten-sheep.jpg",
+   desc:"Sheep, a beach, a heavy sky. Supposed to be full of blondes. It wasn't."},
+  {nom:"Sunrise ridge",type:"Sunrise",region:"Alps",diff:"medium",
+   img:"images/snow-trees.jpg",
+   desc:"Leave in the dark, arrive frozen, leave changed. Good view, bad parking."}
+];
+
+/* ====================================================================
+   MOUNTAIN KITCHEN — recettes. Gere via l'espace admin (triple-clic logo).
+   "best" = le moment ideal : "a bad hike", "rain", "a cancelled date"...
+   ==================================================================== */
+var RECETTES_PUBLIEES = [
+  {
+    titre:"The fondue that wasn't supposed to exist",
+    categorie:"Bivouac",
+    photo:"",
+    best:"a cold bivouac with no plan",
+    description:"Du fromage, une popote en titane, un feu et zero plan. Improvisee a la tombee de la nuit parce qu'il fallait bien manger.",
+    portions:"1 personne affamee",
+    temps:"15 min",
+    kcal:"on ne compte pas ce soir",
+    ingredients:"Du fromage qui fond (reblochon, raclette, ce que tu as)\nUn fond d'eau ou de lait\nUn peu d'ail si tu y as pense\nPain ou pommes de terre pour tremper\nPoivre",
+    preparation:"1. Fais un feu correct, attends les braises.\n2. Coupe le fromage en morceaux dans la popote.\n3. Ajoute le fond de liquide, pose sur les braises.\n4. Remue sans arret. Ca va accrocher, c'est normal.\n5. Quand c'est fondu : trempe, mange, ne juge pas la presentation."
+  },
+  {
+    titre:"The burger you earn after 4 hours of walking",
+    categorie:"After the hike",
+    photo:"images/burger.jpg",
+    best:"a long hike with a view at the end",
+    description:"Pain complet, steak, oeuf, vue sur le fjord. Mange dehors, encore en chaussures de rando, sans dire un mot.",
+    portions:"1 burger serieux",
+    temps:"15 min",
+    kcal:"~650 kcal",
+    ingredients:"2 tranches de pain complet\n1 steak hache epais\n1 oeuf\nSalade\nFromage\nSel, poivre",
+    preparation:"1. Cuis le steak comme tu l'aimes, sale en fin de cuisson.\n2. Oeuf au plat a cote.\n3. Toaste le pain dans la meme poele, dans le gras.\n4. Empile : pain, salade, steak, fromage, oeuf, pain.\n5. Trouve une table avec vue. C'est la moitie de la recette."
+  }
+];
+
+/* ================ BASE D'ALIMENTS — pour 100 g / 100 ml ================ */
+var FOODS = [
+  {n:"Filet de dinde",kcal:104,p:24,g:0,l:1},{n:"Escalope de poulet",kcal:110,p:23,g:0,l:2},
+  {n:"Cuisse de poulet",kcal:177,p:19,g:0,l:11},{n:"Poulet roti",kcal:190,p:25,g:0,l:10},
+  {n:"Steak hache 5%",kcal:137,p:21,g:0,l:5},{n:"Steak hache 15%",kcal:218,p:19,g:0,l:15},
+  {n:"Boeuf (bavette)",kcal:175,p:26,g:0,l:8},{n:"Roti de boeuf",kcal:155,p:27,g:0,l:5},
+  {n:"Filet de porc",kcal:143,p:22,g:0,l:6},{n:"Jambon blanc",kcal:107,p:18,g:1,l:3},
+  {n:"Jambon cru",kcal:240,p:27,g:0,l:15},{n:"Lardons",kcal:280,p:15,g:1,l:24},
+  {n:"Saucisse",kcal:300,p:14,g:2,l:27},{n:"Merguez",kcal:280,p:15,g:2,l:24},
+  {n:"Saumon",kcal:208,p:20,g:0,l:13},{n:"Saumon fume",kcal:182,p:22,g:0,l:11},
+  {n:"Thon (nature)",kcal:116,p:26,g:0,l:1},{n:"Cabillaud",kcal:82,p:18,g:0,l:1},
+  {n:"Colin / merlu",kcal:78,p:17,g:0,l:1},{n:"Crevettes",kcal:99,p:21,g:0,l:1},
+  {n:"Sardines (huile)",kcal:208,p:25,g:0,l:11},{n:"Maquereau",kcal:205,p:19,g:0,l:14},
+  {n:"Oeuf entier",kcal:143,p:13,g:1,l:10},{n:"Blanc d'oeuf",kcal:52,p:11,g:1,l:0},
+  {n:"Lait entier",kcal:64,p:3,g:5,l:4},{n:"Lait demi-ecreme",kcal:46,p:3,g:5,l:2},
+  {n:"Yaourt nature",kcal:61,p:4,g:5,l:3},{n:"Yaourt grec",kcal:115,p:6,g:4,l:9},
+  {n:"Skyr / yaourt 0%",kcal:57,p:10,g:4,l:0},{n:"Fromage blanc 3%",kcal:74,p:8,g:4,l:3},
+  {n:"Cottage cheese",kcal:98,p:11,g:3,l:4},{n:"Comte",kcal:410,p:28,g:0,l:34},
+  {n:"Emmental",kcal:382,p:28,g:0,l:30},{n:"Mozzarella",kcal:280,p:18,g:3,l:22},
+  {n:"Parmesan",kcal:392,p:36,g:0,l:27},{n:"Reblochon",kcal:330,p:21,g:0,l:27},
+  {n:"Raclette",kcal:357,p:23,g:1,l:28},{n:"Camembert",kcal:299,p:20,g:0,l:24},
+  {n:"Chevre",kcal:364,p:22,g:1,l:30},{n:"Fromage rape",kcal:380,p:25,g:1,l:31},
+  {n:"Creme fraiche",kcal:292,p:2,g:3,l:30},{n:"Beurre",kcal:745,p:1,g:1,l:82},
+  {n:"Riz blanc (cuit)",kcal:130,p:3,g:28,l:0},{n:"Riz complet (cuit)",kcal:123,p:3,g:25,l:1},
+  {n:"Pates (cuites)",kcal:158,p:6,g:31,l:1},{n:"Pates completes (cuites)",kcal:149,p:6,g:28,l:2},
+  {n:"Pommes de terre (cuites)",kcal:87,p:2,g:20,l:0},{n:"Patate douce (cuite)",kcal:90,p:2,g:21,l:0},
+  {n:"Quinoa (cuit)",kcal:120,p:4,g:21,l:2},{n:"Semoule (cuite)",kcal:112,p:4,g:23,l:0},
+  {n:"Pain complet",kcal:247,p:9,g:43,l:3},{n:"Pain blanc / baguette",kcal:265,p:9,g:51,l:2},
+  {n:"Pain de mie",kcal:280,p:8,g:49,l:5},{n:"Flocons d'avoine",kcal:372,p:13,g:60,l:7},
+  {n:"Muesli",kcal:363,p:9,g:65,l:6},{n:"Granola",kcal:471,p:10,g:64,l:20},
+  {n:"Lentilles (cuites)",kcal:116,p:9,g:20,l:0},{n:"Pois chiches (cuits)",kcal:164,p:9,g:27,l:3},
+  {n:"Haricots rouges (cuits)",kcal:127,p:9,g:22,l:1},{n:"Brocoli",kcal:34,p:3,g:7,l:0},
+  {n:"Haricots verts",kcal:31,p:2,g:7,l:0},{n:"Courgette",kcal:17,p:1,g:3,l:0},
+  {n:"Tomate",kcal:18,p:1,g:4,l:0},{n:"Carotte",kcal:41,p:1,g:10,l:0},
+  {n:"Epinards",kcal:23,p:3,g:4,l:0},{n:"Poivron",kcal:31,p:1,g:6,l:0},
+  {n:"Salade verte",kcal:15,p:1,g:3,l:0},{n:"Champignons",kcal:22,p:3,g:3,l:0},
+  {n:"Oignon",kcal:40,p:1,g:9,l:0},{n:"Avocat",kcal:160,p:2,g:9,l:15},
+  {n:"Petits pois",kcal:81,p:5,g:14,l:0},{n:"Banane",kcal:89,p:1,g:23,l:0},
+  {n:"Pomme",kcal:52,p:0,g:14,l:0},{n:"Orange",kcal:47,p:1,g:12,l:0},
+  {n:"Fraises",kcal:32,p:1,g:8,l:0},{n:"Myrtilles",kcal:57,p:1,g:14,l:0},
+  {n:"Raisin",kcal:69,p:1,g:18,l:0},{n:"Kiwi",kcal:61,p:1,g:15,l:1},
+  {n:"Mangue",kcal:60,p:1,g:15,l:0},{n:"Dattes",kcal:282,p:2,g:75,l:0},
+  {n:"Amandes",kcal:579,p:21,g:22,l:50},{n:"Noix",kcal:654,p:15,g:14,l:65},
+  {n:"Noisettes",kcal:628,p:15,g:17,l:61},{n:"Cacahuetes",kcal:567,p:26,g:16,l:49},
+  {n:"Beurre de cacahuete",kcal:588,p:25,g:20,l:50},{n:"Graines de chia",kcal:486,p:17,g:42,l:31},
+  {n:"Huile d'olive",kcal:884,p:0,g:0,l:100},{n:"Pizza margherita",kcal:240,p:10,g:30,l:9},
+  {n:"Lasagnes",kcal:155,p:8,g:14,l:7},{n:"Quiche lorraine",kcal:280,p:10,g:20,l:18},
+  {n:"Sandwich jambon-beurre",kcal:250,p:10,g:32,l:9},{n:"Burger (classique)",kcal:250,p:14,g:21,l:12},
+  {n:"Kebab",kcal:215,p:13,g:18,l:11},{n:"Croque-monsieur",kcal:280,p:14,g:23,l:15},
+  {n:"Riz cantonais",kcal:165,p:6,g:24,l:5},{n:"Pates carbonara",kcal:200,p:9,g:22,l:9},
+  {n:"Soupe de legumes",kcal:40,p:1,g:7,l:1},{n:"Omelette",kcal:154,p:11,g:1,l:12},
+  {n:"Pancake",kcal:227,p:6,g:28,l:10},{n:"Whey (poudre)",kcal:400,p:80,g:8,l:6},
+  {n:"Whey isolate (poudre)",kcal:370,p:90,g:2,l:1},{n:"Gainer (poudre)",kcal:380,p:25,g:55,l:5},
+  {n:"Creatine (poudre)",kcal:0,p:0,g:0,l:0},{n:"Barre proteinee",kcal:350,p:33,g:35,l:9},
+  {n:"Miel",kcal:304,p:0,g:82,l:0},{n:"Chocolat noir",kcal:546,p:6,g:46,l:36},
+  {n:"Pate a tartiner (Nutella)",kcal:539,p:6,g:57,l:31},{n:"Houmous",kcal:166,p:8,g:14,l:10},
+  {n:"Tofu",kcal:144,p:15,g:2,l:9},{n:"Cafe (noir)",kcal:2,p:0,g:0,l:0},
+  {n:"Biere",kcal:43,p:0,g:4,l:0},{n:"Jus d'orange",kcal:45,p:1,g:10,l:0},
+  {n:"Chips",kcal:536,p:6,g:50,l:34},{n:"Cookie",kcal:480,p:5,g:64,l:23},
+  {n:"Frites (au four)",kcal:175,p:3,g:28,l:6},{n:"Glace (vanille)",kcal:207,p:4,g:24,l:11},
+  {n:"Wrap / tortilla",kcal:310,p:8,g:50,l:8},{n:"Couscous (cuit)",kcal:112,p:4,g:23,l:0}
+];
+
+var ACTIVITY={
+  sedentary:{label:"Sedentaire (assis toute la journee)",factor:1.2},
+  light:{label:"Legerement actif",factor:1.375},
+  moderate:{label:"Moderement actif (2h debout + sport)",factor:1.55},
+  active:{label:"Tres actif",factor:1.725}
+};
+var GOALS={
+  perte_moderee:{label:"Perte de poids - reguliere",kcalAdj:-450,ppk:2.0,advice:"Vise environ -0,5 kg par semaine. Proteines hautes pour preserver le muscle."},
+  perte_douce:{label:"Perte de poids - douce",kcalAdj:-250,ppk:1.9,advice:"Vise environ -0,25 kg par semaine. Plus lent, plus facile a tenir."},
+  maintien:{label:"Maintien du poids",kcalAdj:0,ppk:1.7,advice:"Tu manges autour de ta maintenance."},
+  masse_douce:{label:"Prise de masse - douce",kcalAdj:200,ppk:1.8,advice:"Vise environ +0,25 kg par mois. Surplus leger, masse propre."},
+  masse_moderee:{label:"Prise de masse - moderee",kcalAdj:350,ppk:1.9,advice:"Vise environ +0,4 kg par mois. Bon compromis."}
+};
+var GOAL_GROUP={perte:["perte_moderee","perte_douce"],maintien:["maintien"],masse:["masse_douce","masse_moderee"]};
+var DEFAULT_PROFILE={name:"",age:24,sex:"homme",weight:68,height:172,activity:"moderate",goal:"masse_moderee"};
+
+function load(k,fb){try{var v=localStorage.getItem("cf_"+k);return v?JSON.parse(v):fb;}catch(e){return fb;}}
+function save(k,v){try{localStorage.setItem("cf_"+k,JSON.stringify(v));}catch(e){}}
+function initRecettes(){var s=load("recettes",null);return(s&&s.length>=0)?s:JSON.parse(JSON.stringify(RECETTES_PUBLIEES));}
+function initJournal(){var s=load("journal",null);return(s&&s.length>=0)?s:JSON.parse(JSON.stringify(JOURNAL));}
+function migrateProfile(p){if(!p.goal||!GOALS[p.goal])p.goal="masse_moderee";return p;}
+
+var state={
+  tkTab:"jour",
+  profile:migrateProfile(load("profile",DEFAULT_PROFILE)),
+  days:load("days",{}),
+  weights:load("weights",[]),
+  recettes:initRecettes(),
+  journal:initJournal(),
+  customFoods:load("customFoods",[]),
+  activeDate:todayKey(),
+  openRecipe:-1,
+  isAdmin:false,
+  modal:null,editForm:null,editJournal:null
+};
+
+function todayKey(d){d=d||new Date();return d.toISOString().slice(0,10);}
+function prettyDate(k){return new Date(k+"T00:00:00").toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"});}
+function computeTargets(p){
+  var base=10*p.weight+6.25*p.height-5*p.age;
+  var bmr=p.sex==="homme"?base+5:base-161;
+  var maintenance=bmr*ACTIVITY[p.activity].factor;
+  var goal=GOALS[p.goal];
+  var calories=Math.max(1200,maintenance+goal.kcalAdj);
+  var protein=p.weight*goal.ppk;
+  var fat=(calories*0.27)/9;
+  var carbs=Math.max(0,(calories-protein*4-fat*9)/4);
+  return{bmr:Math.round(bmr),maintenance:Math.round(maintenance),calories:Math.round(calories),
+    protein:Math.round(protein),fat:Math.round(fat),carbs:Math.round(carbs),
+    direction:goal.kcalAdj<0?"perte":goal.kcalAdj>0?"masse":"maintien",advice:goal.advice};
+}
+function getDay(){return state.days[state.activeDate]||{meals:[],workouts:[],burned:0};}
+function setDay(patch){state.days[state.activeDate]=Object.assign({},getDay(),patch);save("days",state.days);renderTracker();}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"})[c];});}
+function saveRecettes(){save("recettes",state.recettes);}
+function allFoods(){return state.customFoods.map(function(f){return{n:f.n,kcal:f.kcal,p:f.p,g:f.g,l:f.l,_own:true};}).concat(FOODS);}
+
+/* ================ JOURNAL ================ */
+function saveJournal(){save("journal",state.journal);}
+
+function renderJournal(){
+  var adm=document.getElementById("journalAdmin");
+  if(state.isAdmin){
+    adm.innerHTML='<div class="admin-bar"><span>Mode admin — Journal</span>'+
+      '<span><button id="addEntry">+ Entree</button> '+
+      '<button id="exportJournal">Exporter le journal</button> '+
+      '<button id="adminOffJ">Quitter</button></span></div>';
+  }else{adm.innerHTML="";}
+
+  var h="";
+  if(state.journal.length===0){
+    h='<div class="journal-empty">'+
+      '<div class="je-mark">— still empty —</div>'+
+      '<p>The journal hasn\'t started yet. Cold stories are on their way.</p>'+
+      (state.isAdmin
+        ? '<button class="je-btn" id="emptyAdd">Ecrire la premiere entree</button>'
+        : '')+
+      '</div>';
+  }
+  state.journal.forEach(function(e,i){
+    h+='<div class="entry" data-jentry="'+i+'">'+
+      '<div class="entry-meta">'+
+      (e.format?'<div class="entry-format">'+esc(e.format)+'</div>':'')+
+      (e.date?'<div class="entry-date">'+esc(e.date)+'</div>':'')+'</div>'+
+      '<div><div class="entry-title">'+esc(e.titre)+'</div>'+
+      (e.mood?'<div class="entry-mood">'+esc(e.mood)+'</div>':'')+'</div>'+
+      '<div class="entry-body">'+
+      (e.photo?'<img src="'+esc(e.photo)+'" alt="" onerror="this.style.display=\'none\'" />':'')+
+      '<p>'+esc(e.body).replace(/\n/g,'<br><br>')+'</p>'+
+      (state.isAdmin?'<div class="entry-admin">'+
+        '<button data-jedit="'+i+'">Modifier</button>'+
+        '<button data-jup="'+i+'">Monter</button>'+
+        '<button data-jdown="'+i+'">Descendre</button>'+
+        '<button data-jdel="'+i+'">Supprimer</button></div>':'')+
+      '</div>'+
+      '</div>';
+  });
+  document.getElementById("journalList").innerHTML=h;
+
+  document.querySelectorAll("[data-jentry]").forEach(function(el){
+    el.onclick=function(ev){
+      if(ev.target.closest(".entry-admin"))return;
+      el.classList.toggle("open");
+    };
+  });
+  if(state.isAdmin){
+    var off=document.getElementById("adminOffJ");
+    if(off)off.onclick=function(){state.isAdmin=false;renderJournal();renderRecipes();};
+    var add=document.getElementById("addEntry");
+    if(add)add.onclick=function(){openJournalForm(-1);};
+    var ea=document.getElementById("emptyAdd");
+    if(ea)ea.onclick=function(){openJournalForm(-1);};
+    var exp=document.getElementById("exportJournal");
+    if(exp)exp.onclick=function(){state.modal="exportJournal";renderModal();};
+    document.querySelectorAll("[data-jedit]").forEach(function(el){
+      el.onclick=function(e){e.stopPropagation();openJournalForm(+el.dataset.jedit);};});
+    document.querySelectorAll("[data-jdel]").forEach(function(el){
+      el.onclick=function(e){e.stopPropagation();
+        if(!confirm("Supprimer cette entree ?"))return;
+        state.journal.splice(+el.dataset.jdel,1);saveJournal();renderJournal();};});
+    document.querySelectorAll("[data-jup]").forEach(function(el){
+      el.onclick=function(e){e.stopPropagation();var i=+el.dataset.jup;if(i<=0)return;
+        var t=state.journal[i-1];state.journal[i-1]=state.journal[i];state.journal[i]=t;
+        saveJournal();renderJournal();};});
+    document.querySelectorAll("[data-jdown]").forEach(function(el){
+      el.onclick=function(e){e.stopPropagation();var i=+el.dataset.jdown;
+        if(i>=state.journal.length-1)return;
+        var t=state.journal[i+1];state.journal[i+1]=state.journal[i];state.journal[i]=t;
+        saveJournal();renderJournal();};});
+  }
+}
+function openJournalForm(index){
+  if(index>=0){state.editJournal=Object.assign({},state.journal[index]);}
+  else{state.editJournal={format:"",titre:"",date:"",mood:"",photo:"",body:""};}
+  state.modal={jedit:index};renderModal();
+}
+function journalToCode(){
+  function q(s){return JSON.stringify(s||"");}
+  if(state.journal.length===0)return "";
+  return state.journal.map(function(e){
+    return "  {\n    format:"+q(e.format)+",\n    titre:"+q(e.titre)+",\n    date:"+q(e.date)+
+      ",\n    mood:"+q(e.mood)+",\n    photo:"+q(e.photo)+",\n    body:"+q(e.body)+"\n  }";
+  }).join(",\n");
+}
+
+/* ================ PLACES ================ */
+function renderSpots(){
+  var h="";
+  SPOTS.forEach(function(s){
+    h+='<div class="spot">';
+    if(s.img)h+='<img class="spot-img" src="'+esc(s.img)+'" alt="" onerror="this.style.display=\'none\'" />';
+    h+='<div class="spot-txt"><div class="spot-name">'+esc(s.nom)+'</div>'+
+      '<div class="spot-tags">'+
+      (s.type?'<span class="spot-tag">'+esc(s.type)+'</span>':'')+
+      (s.region?'<span class="spot-tag">'+esc(s.region)+'</span>':'')+
+      (s.diff?'<span class="spot-tag diff-'+esc(s.diff)+'">'+esc(s.diff)+'</span>':'')+
+      '</div>'+
+      '<div class="spot-desc">'+esc(s.desc)+'</div></div></div>';
+  });
+  document.getElementById("spotList").innerHTML=h;
+}
+
+/* ================ MOUNTAIN KITCHEN ================ */
+function renderRecipes(){
+  var adm=document.getElementById("recipesAdmin");
+  if(state.isAdmin){
+    adm.innerHTML='<div class="admin-bar"><span>Mode admin — Mountain Kitchen</span>'+
+      '<span><button id="addRecipe">+ Recette</button> '+
+      '<button id="exportRecipes">Exporter</button> '+
+      '<button id="adminOff">Quitter</button></span></div>';
+  }else{adm.innerHTML="";}
+  var h="";
+  if(state.recettes.length===0)h='<p style="color:var(--mist);font-style:italic">Aucune recette pour l\'instant.</p>';
+  state.recettes.forEach(function(r,i){
+    var open=state.openRecipe===i;
+    h+='<article class="rcard '+(open?"open":"")+'" id="recipe-'+i+'">';
+    h+='<div class="rcard-photo">';
+    if(r.categorie)h+='<div class="rcard-tag">'+esc(r.categorie)+'</div>';
+    if(r.photo)h+='<img src="'+esc(r.photo)+'" alt="" onerror="this.style.display=\'none\'" />';
+    else h+='<div class="rcard-noimg">photo a ajouter — images/...</div>';
+    h+='</div><div class="rcard-body" data-recipe="'+i+'">'+
+      '<h3>'+esc(r.titre)+'</h3>'+
+      '<div class="rcard-meta">'+[r.portions,r.temps,r.kcal].filter(Boolean).map(esc).join("&nbsp;&nbsp;/&nbsp;&nbsp;")+'</div>';
+    if(r.description)h+='<div class="rcard-desc">'+esc(r.description)+'</div>';
+    if(r.best)h+='<div class="rcard-best"><b>Best after:</b> '+esc(r.best)+'</div>';
+    h+='<div class="rdetail">';
+    if(r.ingredients)h+='<h4>Ingredients</h4><div class="lines">'+esc(r.ingredients)+'</div>';
+    if(r.preparation)h+='<h4>Preparation</h4><div class="lines">'+esc(r.preparation)+'</div>';
+    h+='<button class="rshare" data-share="'+i+'">Partager ce lien</button></div></div>';
+    if(state.isAdmin){
+      h+='<div class="rcard-admin">'+
+        '<button data-edit="'+i+'">Modifier</button>'+
+        '<button data-up="'+i+'">Monter</button>'+
+        '<button data-down="'+i+'">Descendre</button>'+
+        '<button data-del="'+i+'">Supprimer</button></div>';
+    }
+    h+='</article>';
+  });
+  document.getElementById("recipeGrid").innerHTML=h;
+  document.querySelectorAll("[data-recipe]").forEach(function(el){
+    el.onclick=function(e){
+      if(e.target.dataset.share!==undefined)return;
+      var i=+el.dataset.recipe;state.openRecipe=state.openRecipe===i?-1:i;renderRecipes();
+    };
+  });
+  document.querySelectorAll("[data-share]").forEach(function(el){
+    el.onclick=function(e){e.stopPropagation();shareRecipe(+el.dataset.share);};
+  });
+  if(state.isAdmin){
+    document.getElementById("adminOff").onclick=function(){state.isAdmin=false;renderRecipes();};
+    document.getElementById("addRecipe").onclick=function(){openEditForm(-1);};
+    document.getElementById("exportRecipes").onclick=function(){state.modal="export";renderModal();};
+    document.querySelectorAll("[data-edit]").forEach(function(el){el.onclick=function(){openEditForm(+el.dataset.edit);};});
+    document.querySelectorAll("[data-del]").forEach(function(el){el.onclick=function(){
+      if(!confirm("Supprimer cette recette ?"))return;
+      state.recettes.splice(+el.dataset.del,1);saveRecettes();renderRecipes();};});
+    document.querySelectorAll("[data-up]").forEach(function(el){el.onclick=function(){
+      var i=+el.dataset.up;if(i<=0)return;
+      var t=state.recettes[i-1];state.recettes[i-1]=state.recettes[i];state.recettes[i]=t;
+      saveRecettes();renderRecipes();};});
+    document.querySelectorAll("[data-down]").forEach(function(el){el.onclick=function(){
+      var i=+el.dataset.down;if(i>=state.recettes.length-1)return;
+      var t=state.recettes[i+1];state.recettes[i+1]=state.recettes[i];state.recettes[i]=t;
+      saveRecettes();renderRecipes();};});
+  }
+}
+function shareRecipe(i){
+  var r=state.recettes[i];
+  var url=location.origin+location.pathname+"#recipe-"+i;
+  if(navigator.share){navigator.share({title:r.titre,url:url}).catch(function(){});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(url).then(
+    function(){alert("Lien copie :\n"+url);},function(){prompt("Copie ce lien :",url);});}
+  else{prompt("Copie ce lien :",url);}
+}
+function openEditForm(index){
+  if(index>=0){state.editForm=Object.assign({},state.recettes[index]);}
+  else{state.editForm={titre:"",categorie:"",photo:"",best:"",description:"",portions:"",temps:"",kcal:"",ingredients:"",preparation:""};}
+  state.modal={edit:index};renderModal();
+}
+
+/* ================ MODALES ================ */
+function renderModal(){
+  var root=document.getElementById("modalRoot");
+  if(!state.modal){root.innerHTML="";return;}
+  if(state.modal==="code"){
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>Espace admin</h3>'+
+      '<p class="tk-muted" style="margin-bottom:12px">Code secret pour gerer les recettes et le private log.</p>'+
+      '<input type="password" id="codeInput" placeholder="code secret" style="padding:9px 11px;border-radius:8px;border:1px solid var(--line-d);width:100%;font-family:var(--body);font-size:13.5px" />'+
+      '<div class="tk-row" style="margin-top:14px;justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="codeCancel">Annuler</button>'+
+      '<button class="tk-btn" id="codeOk">Valider</button></div></div></div>';
+    document.getElementById("codeCancel").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    var ci=document.getElementById("codeInput");ci.focus();
+    function tryCode(){
+      if(ci.value===ADMIN_CODE){state.isAdmin=true;state.modal=null;renderModal();
+        renderJournal();renderRecipes();
+        document.getElementById("journal").scrollIntoView({behavior:"smooth"});}
+      else{alert("Code incorrect.");ci.value="";ci.focus();}
+    }
+    document.getElementById("codeOk").onclick=tryCode;
+    ci.onkeydown=function(e){if(e.key==="Enter")tryCode();};
+    return;
+  }
+  if(state.modal==="adminMenu"){
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>Espace admin</h3>'+
+      '<p class="tk-muted" style="margin-bottom:14px">Que veux-tu ouvrir ?</p>'+
+      '<button class="tk-btn full" id="amJournal" style="margin-bottom:8px">Ecrire dans le Journal</button>'+
+      '<button class="tk-btn full" id="amKitchen" style="margin-bottom:8px">Gerer Mountain Kitchen</button>'+
+      '<button class="tk-btn full ghost" id="amLog">Ouvrir le Private log</button>'+
+      '<div class="tk-row" style="margin-top:12px;justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="amClose">Fermer</button></div></div></div>';
+    document.getElementById("amClose").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    document.getElementById("amJournal").onclick=function(){
+      closeModal();document.getElementById("journal").scrollIntoView({behavior:"smooth"});};
+    document.getElementById("amKitchen").onclick=function(){
+      closeModal();document.getElementById("kitchen").scrollIntoView({behavior:"smooth"});};
+    document.getElementById("amLog").onclick=function(){closeModal();openTracker();};
+    return;
+  }
+  if(state.modal==="export"){
+    var txt=recettesToCode();
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>Publier mes recettes</h3>'+
+      '<p class="tk-muted" style="margin-bottom:10px">Copie ce texte. Dans index.html, remplace ce qui est entre '+
+      '<b>RECETTES_PUBLIEES = [</b> et le <b>]</b>, puis renvoie le fichier sur GitHub.</p>'+
+      '<textarea readonly style="width:100%;min-height:150px;font-family:monospace;font-size:11px;background:#1a1a1a;color:#e0d8c0;border-radius:8px;padding:10px" id="exportBox">'+esc(txt)+'</textarea>'+
+      '<div class="tk-row" style="margin-top:12px;justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="expClose">Fermer</button>'+
+      '<button class="tk-btn" id="expCopy">Copier</button></div></div></div>';
+    document.getElementById("expClose").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    document.getElementById("expCopy").onclick=function(){
+      var b=document.getElementById("exportBox");b.select();
+      try{document.execCommand("copy");alert("Copie !");}catch(e){alert("Copie le texte manuellement.");}
+    };
+    return;
+  }
+  if(state.modal==="customFood"){
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>Ajouter un aliment perso</h3>'+
+      '<p class="tk-muted" style="margin-bottom:12px">Valeurs pour 100 g (ou 100 ml).</p>'+
+      '<div style="margin-bottom:10px"><label style="font-size:12px;font-weight:600">Nom</label>'+
+      '<input class="cf" id="cfName" placeholder="ex : Whey vanille (ma marque)" /></div>'+
+      '<div class="tk-row"><div style="flex:1"><label style="font-size:12px;font-weight:600">Calories/100g</label><input class="cf" type="number" id="cfKcal" /></div>'+
+      '<div style="flex:1"><label style="font-size:12px;font-weight:600">Proteines/100g</label><input class="cf" type="number" id="cfP" /></div></div>'+
+      '<div class="tk-row"><div style="flex:1"><label style="font-size:12px;font-weight:600">Glucides/100g</label><input class="cf" type="number" id="cfG" /></div>'+
+      '<div style="flex:1"><label style="font-size:12px;font-weight:600">Lipides/100g</label><input class="cf" type="number" id="cfL" /></div></div>'+
+      '<div class="tk-row" style="margin-top:6px;justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="cfCancel">Annuler</button>'+
+      '<button class="tk-btn" id="cfSave">Ajouter</button></div></div></div>';
+    root.querySelectorAll(".cf").forEach(function(el){
+      el.style.cssText="padding:9px 11px;border-radius:8px;border:1px solid var(--line-d);width:100%;font-family:var(--body);font-size:13.5px";
+    });
+    document.getElementById("cfCancel").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    document.getElementById("cfSave").onclick=function(){
+      var name=document.getElementById("cfName").value.trim();
+      var kc=parseFloat(document.getElementById("cfKcal").value);
+      if(!name){alert("Donne un nom.");return;}
+      if(isNaN(kc)){alert("Indique au moins les calories.");return;}
+      state.customFoods.unshift({n:name,kcal:kc,
+        p:parseFloat(document.getElementById("cfP").value)||0,
+        g:parseFloat(document.getElementById("cfG").value)||0,
+        l:parseFloat(document.getElementById("cfL").value)||0});
+      save("customFoods",state.customFoods);state.modal=null;renderModal();renderTracker();
+    };
+    return;
+  }
+  if(state.modal==="exportJournal"){
+    var jtxt=journalToCode();
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>Publier mon journal</h3>'+
+      '<p class="tk-muted" style="margin-bottom:10px">Copie ce texte. Dans index.html, remplace ce qui est entre '+
+      '<b>var JOURNAL = [</b> et le <b>]</b>, puis renvoie le fichier sur GitHub.</p>'+
+      '<textarea readonly style="width:100%;min-height:150px;font-family:monospace;font-size:11px;background:#1a1a1a;color:#e0d8c0;border-radius:8px;padding:10px" id="exportBox">'+esc(jtxt)+'</textarea>'+
+      '<div class="tk-row" style="margin-top:12px;justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="expClose">Fermer</button>'+
+      '<button class="tk-btn" id="expCopy">Copier</button></div></div></div>';
+    document.getElementById("expClose").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    document.getElementById("expCopy").onclick=function(){
+      var b=document.getElementById("exportBox");b.select();
+      try{document.execCommand("copy");alert("Copie !");}catch(e){alert("Copie le texte manuellement.");}
+    };
+    return;
+  }
+  if(state.modal&&typeof state.modal==="object"&&state.modal.jedit!==undefined){
+    var jf=state.editJournal,jIsNew=state.modal.jedit<0;
+    function jfld(key,label,ph,area){
+      var v=esc(jf[key]||"");
+      var base="padding:9px 11px;border-radius:8px;border:1px solid var(--line-d);width:100%;font-family:var(--body);font-size:13.5px;margin-bottom:10px";
+      if(area)return '<label style="font-size:12px;font-weight:600">'+label+'</label><textarea data-jfk="'+key+'" placeholder="'+ph+'" style="'+base+';min-height:120px">'+v+'</textarea>';
+      return '<label style="font-size:12px;font-weight:600">'+label+'</label><input data-jfk="'+key+'" placeholder="'+ph+'" value="'+v+'" style="'+base+'" />';
+    }
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>'+(jIsNew?"Nouvelle entree":"Modifier l\'entree")+'</h3>'+
+      jfld("format","Format / serie","ex : Bad idea #1, Dating advice, Journal entry")+
+      jfld("titre","Titre","ex : The trail with the red sign")+
+      jfld("date","Lieu ou date","ex : Passage du Varo, Mai 2026")+
+      jfld("mood","Mood","ex : mood: the sign was right")+
+      jfld("body","Ton histoire","Raconte. 5 a 8 lignes suffisent.",true)+
+      jfld("photo","Photo (optionnel)","ex : images/varo-sign.jpg")+
+      '<div class="tk-row" style="justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="jformCancel">Annuler</button>'+
+      '<button class="tk-btn" id="jformSave">'+(jIsNew?"Ajouter":"Enregistrer")+'</button></div></div></div>';
+    root.querySelectorAll("[data-jfk]").forEach(function(el){
+      el.oninput=function(){state.editJournal[el.dataset.jfk]=el.value;};
+    });
+    document.getElementById("jformCancel").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    document.getElementById("jformSave").onclick=function(){
+      if(!state.editJournal.titre.trim()){alert("Donne un titre.");return;}
+      if(!state.editJournal.body.trim()){alert("Ecris ton histoire.");return;}
+      if(jIsNew)state.journal.unshift(Object.assign({},state.editJournal));
+      else state.journal[state.modal.jedit]=Object.assign({},state.editJournal);
+      saveJournal();state.modal=null;state.editJournal=null;renderModal();renderJournal();
+    };
+    return;
+  }
+  if(state.modal&&typeof state.modal==="object"){
+    var f=state.editForm,isNew=state.modal.edit<0;
+    function fld(key,label,ph,area){
+      var v=esc(f[key]||"");
+      var base="padding:9px 11px;border-radius:8px;border:1px solid var(--line-d);width:100%;font-family:var(--body);font-size:13.5px;margin-bottom:10px";
+      if(area)return '<label style="font-size:12px;font-weight:600">'+label+'</label><textarea data-fk="'+key+'" placeholder="'+ph+'" style="'+base+';min-height:70px">'+v+'</textarea>';
+      return '<label style="font-size:12px;font-weight:600">'+label+'</label><input data-fk="'+key+'" placeholder="'+ph+'" value="'+v+'" style="'+base+'" />';
+    }
+    root.innerHTML='<div class="tk-modal-bg" id="ov"><div class="tk-modal">'+
+      '<h3>'+(isNew?"Nouvelle recette":"Modifier la recette")+'</h3>'+
+      fld("titre","Titre editorialise","ex : The fondue that wasn't supposed to exist")+
+      fld("categorie","Categorie","ex : Bivouac, After the hike")+
+      fld("best","Best after (le bon moment)","ex : a cold bivouac, rain, a cancelled date")+
+      fld("portions","Portions","ex : 2 portions")+
+      fld("temps","Temps","ex : 20 min")+
+      fld("kcal","Energie","ex : ~520 kcal / portion")+
+      fld("description","Description / ambiance","Une phrase qui fait ressentir",true)+
+      fld("ingredients","Ingredients (un par ligne)","...",true)+
+      fld("preparation","Preparation","1. ...",true)+
+      fld("photo","Photo du plat","ex : images/fondue.jpg")+
+      '<div class="tk-row" style="justify-content:flex-end">'+
+      '<button class="tk-btn ghost" id="formCancel">Annuler</button>'+
+      '<button class="tk-btn" id="formSave">'+(isNew?"Ajouter":"Enregistrer")+'</button></div></div></div>';
+    root.querySelectorAll("[data-fk]").forEach(function(el){
+      el.oninput=function(){state.editForm[el.dataset.fk]=el.value;};
+    });
+    document.getElementById("formCancel").onclick=closeModal;
+    document.getElementById("ov").onclick=function(e){if(e.target.id==="ov")closeModal();};
+    document.getElementById("formSave").onclick=function(){
+      if(!state.editForm.titre.trim()){alert("Donne un titre.");return;}
+      if(isNew)state.recettes.unshift(Object.assign({},state.editForm));
+      else state.recettes[state.modal.edit]=Object.assign({},state.editForm);
+      saveRecettes();state.modal=null;state.editForm=null;renderModal();renderRecipes();
+    };
+    return;
+  }
+}
+function closeModal(){state.modal=null;state.editForm=null;state.editJournal=null;renderModal();}
+function recettesToCode(){
+  function q(s){return JSON.stringify(s||"");}
+  return state.recettes.map(function(r){
+    return "  {\n    titre:"+q(r.titre)+",\n    categorie:"+q(r.categorie)+",\n    photo:"+q(r.photo)+
+      ",\n    best:"+q(r.best)+",\n    description:"+q(r.description)+",\n    portions:"+q(r.portions)+
+      ",\n    temps:"+q(r.temps)+",\n    kcal:"+q(r.kcal)+",\n    ingredients:"+q(r.ingredients)+
+      ",\n    preparation:"+q(r.preparation)+"\n  }";
+  }).join(",\n");
+}
+
+/* ================ TRACKER (PRIVATE LOG) ================ */
+var selectedFood=null,acIndex=-1,acMatches=[];
+function openTracker(){
+  document.getElementById("trackerPanel").classList.add("on");
+  document.body.style.overflow="hidden";renderTracker();
+}
+function renderTracker(){
+  document.querySelectorAll(".tk-nav button").forEach(function(b){
+    b.classList.toggle("on",b.dataset.tk===state.tkTab);});
+  ["jour","poids","profil"].forEach(function(t){
+    document.getElementById("tk-"+t).classList.toggle("hidden",t!==state.tkTab);});
+  if(state.tkTab==="jour")renderTkJour();
+  else if(state.tkTab==="poids")renderTkPoids();
+  else if(state.tkTab==="profil")renderTkProfil();
+}
+function weekAverage(){
+  var sumK=0,sumP=0,n=0;
+  for(var i=0;i<7;i++){
+    var d=new Date(state.activeDate+"T00:00:00");d.setDate(d.getDate()-i);
+    var day=state.days[todayKey(d)];
+    if(day&&day.meals&&day.meals.length>0){
+      var k=0,p=0;day.meals.forEach(function(m){k+=+m.kcal||0;p+=+m.protein||0;});
+      sumK+=k;sumP+=p;n++;
+    }
+  }
+  return n>0?{kcal:Math.round(sumK/n),protein:Math.round(sumP/n),days:n}:null;
+}
+function renderTkJour(){
+  var t=computeTargets(state.profile),day=getDay();
+  var burned=+day.burned||0,netTarget=t.calories+burned;
+  var eatKcal=0,eatP=0;
+  day.meals.forEach(function(m){eatKcal+=+m.kcal||0;eatP+=+m.protein||0;});
+  var remaining=Math.round(netTarget-eatKcal),over=eatKcal-netTarget>150;
+  var kcalPct=Math.min(100,(eatKcal/netTarget)*100),pPct=Math.min(100,(eatP/t.protein)*100);
+  var isToday=state.activeDate===todayKey();
+  var h='<div class="tk-row" style="margin-bottom:12px">'+
+    '<button class="tk-x" id="prevDay">‹</button>'+
+    '<div style="flex:1;text-align:center;font-family:var(--edito);font-weight:600;text-transform:capitalize">'+prettyDate(state.activeDate)+'</div>'+
+    '<button class="tk-x" id="nextDay" '+(isToday?"disabled":"")+'>›</button></div>';
+  h+='<div class="tk-card dark" style="text-align:center">'+
+    '<div class="tk-st" style="opacity:.6">Calories restantes ('+t.direction+')</div>'+
+    '<div class="tk-big" style="color:'+(over?'#d9a14e':'#f6e9c8')+'">'+(remaining>0?remaining:0)+'</div>'+
+    '<div style="font-size:12px;opacity:.7">'+Math.round(eatKcal)+' / '+netTarget+' kcal'+(burned>0?' (+'+burned+' brulees)':'')+'</div>'+
+    '<div class="tk-bar" style="background:rgba(255,255,255,.15)"><div style="width:'+kcalPct+'%;background:var(--rust)"></div></div></div>';
+  h+='<div style="display:flex;gap:10px">'+
+    '<div class="tk-card" style="flex:1"><div class="tk-st">Proteines</div>'+
+    '<div style="font-family:var(--edito);font-size:20px;font-weight:600">'+Math.round(eatP)+' / '+t.protein+' g</div>'+
+    '<div class="tk-bar"><div style="width:'+pPct+'%;background:#5a7d4f"></div></div></div>'+
+    '<div class="tk-card" style="flex:1"><div class="tk-st">Glucides cible</div>'+
+    '<div style="font-family:var(--edito);font-size:20px;font-weight:600">'+t.carbs+' g</div>'+
+    '<div class="tk-muted">Lipides : '+t.fat+' g</div></div></div>';
+  var wa=weekAverage();
+  if(wa){
+    h+='<div class="tk-card"><div class="tk-sect">Moyenne 7 jours</div>'+
+      '<div style="display:flex;gap:18px">'+
+      '<div><div class="tk-st">Kcal/jour</div><div style="font-family:var(--edito);font-size:19px;font-weight:600">'+wa.kcal+'</div></div>'+
+      '<div><div class="tk-st">Prot/jour</div><div style="font-family:var(--edito);font-size:19px;font-weight:600">'+wa.protein+' g</div></div>'+
+      '<div><div class="tk-st">Jours</div><div style="font-family:var(--edito);font-size:19px;font-weight:600">'+wa.days+'</div></div>'+
+      '</div></div>';
+  }
+  h+='<div class="tk-card"><div class="tk-sect">Repas '+
+    '<button style="background:none;border:none;color:var(--rust);font-weight:600;font-size:12.5px;cursor:pointer" id="addCustomFood">+ Aliment perso</button></div>'+
+    '<label>Chercher un aliment</label>'+
+    '<div class="tk-acwrap"><input id="foodSearch" placeholder="dinde, pizza, whey..." autocomplete="off" />'+
+    '<div id="acList" class="tk-aclist hidden"></div></div>'+
+    '<div class="tk-row" style="margin-top:8px">'+
+    '<div style="flex:1"><label>Quantite (g/ml)</label><input type="number" id="foodQty" value="150" /></div>'+
+    '<div style="flex:1"><label>Apercu</label><div id="foodPreview" style="font-size:13px;padding:9px 0;color:var(--stone)">-</div></div></div>'+
+    '<button class="tk-btn full" id="addFood">Ajouter au repas</button>';
+  if(day.meals.length>0){
+    h+='<div style="margin-top:12px">';
+    day.meals.forEach(function(m,i){
+      h+='<div class="tk-line"><div><div style="font-weight:600;font-size:13px">'+esc(m.name)+'</div>'+
+        '<div style="font-size:11.5px;color:var(--stone)">'+Math.round(m.kcal)+' kcal / '+Math.round(m.protein)+' g prot.</div></div>'+
+        '<button class="tk-x" data-rmmeal="'+i+'">✕</button></div>';
+    });
+    h+='</div>';
+  }else{h+='<p class="tk-empty" style="margin-top:10px">Ajoute ce que tu manges.</p>';}
+  h+='</div>';
+  h+='<div class="tk-card"><div class="tk-sect">Sport du jour '+
+    '<button style="background:none;border:none;color:var(--rust);font-weight:600;font-size:12.5px;cursor:pointer" id="addWorkout">+ Seance</button></div>';
+  if(day.workouts.length===0)h+='<p class="tk-empty">Aucune seance.</p>';
+  day.workouts.forEach(function(w,i){
+    h+='<div class="tk-row"><select data-wk="'+i+'" data-f="type" style="flex:0 0 120px">';
+    ["Musculation","Course","Randonnee","Cardio","Autre"].forEach(function(o){h+='<option '+(w.type===o?"selected":"")+'>'+o+'</option>';});
+    h+='</select><input data-wk="'+i+'" data-f="note" placeholder="duree..." value="'+esc(w.note||"")+'" />'+
+      '<button class="tk-x" data-rmwk="'+i+'">✕</button></div>';
+  });
+  h+='<label style="margin-top:8px">Calories brulees (montre / Strava)</label>'+
+    '<input type="number" id="burned" value="'+(day.burned||"")+'" placeholder="ex : 350" /></div>';
+  document.getElementById("tk-jour").innerHTML=h;
+  wireTkJour();
+}
+function wireTkJour(){
+  var day=getDay();
+  document.getElementById("prevDay").onclick=function(){shiftDate(-1);};
+  document.getElementById("nextDay").onclick=function(){shiftDate(1);};
+  document.getElementById("addCustomFood").onclick=function(){state.modal="customFood";renderModal();};
+  document.getElementById("addWorkout").onclick=function(){
+    var wk=day.workouts.slice();wk.push({type:"Musculation",note:""});setDay({workouts:wk});};
+  document.querySelectorAll("[data-wk]").forEach(function(el){
+    el.onchange=function(){var i=+el.dataset.wk,fk=el.dataset.f,wk=day.workouts.slice();
+      wk[i]=Object.assign({},wk[i]);wk[i][fk]=el.value;setDay({workouts:wk});};});
+  document.querySelectorAll("[data-rmwk]").forEach(function(el){
+    el.onclick=function(){var wk=day.workouts.slice();wk.splice(+el.dataset.rmwk,1);setDay({workouts:wk});};});
+  document.querySelectorAll("[data-rmmeal]").forEach(function(el){
+    el.onclick=function(){var ml=day.meals.slice();ml.splice(+el.dataset.rmmeal,1);setDay({meals:ml});};});
+  document.getElementById("burned").onchange=function(){setDay({burned:this.value});};
+  var search=document.getElementById("foodSearch"),acList=document.getElementById("acList");
+  var qty=document.getElementById("foodQty"),preview=document.getElementById("foodPreview");
+  function updatePreview(){
+    if(!selectedFood){preview.textContent="-";return;}
+    var f=(parseFloat(qty.value)||0)/100;
+    preview.innerHTML='<strong>'+Math.round(selectedFood.kcal*f)+' kcal</strong> / '+Math.round(selectedFood.p*f)+' g prot.';
+  }
+  function renderMatches(){
+    if(acMatches.length===0){acList.classList.add("hidden");return;}
+    acList.innerHTML=acMatches.map(function(m,i){
+      return '<div class="tk-acitem '+(i===acIndex?'hl':'')+'" data-ac="'+i+'"><span>'+esc(m.n)+
+        (m._own?' <span style="color:var(--rust)">(perso)</span>':'')+'</span>'+
+        '<span style="color:var(--stone);font-size:11.5px">'+m.kcal+'/100g</span></div>';
+    }).join("");
+    acList.classList.remove("hidden");
+    acList.querySelectorAll("[data-ac]").forEach(function(el){
+      el.onmousedown=function(e){e.preventDefault();pick(acMatches[+el.dataset.ac]);};});
+  }
+  function pick(food){selectedFood=food;search.value=food.n;acMatches=[];acIndex=-1;
+    acList.classList.add("hidden");updatePreview();}
+  search.oninput=function(){
+    selectedFood=null;updatePreview();
+    var q=search.value.trim().toLowerCase();
+    if(q.length<1){acMatches=[];acList.classList.add("hidden");return;}
+    acMatches=allFoods().filter(function(f){return f.n.toLowerCase().indexOf(q)>=0;}).slice(0,14);
+    acIndex=-1;renderMatches();
+  };
+  search.onkeydown=function(e){
+    if(acMatches.length===0)return;
+    if(e.key==="ArrowDown"){e.preventDefault();acIndex=Math.min(acIndex+1,acMatches.length-1);renderMatches();}
+    else if(e.key==="ArrowUp"){e.preventDefault();acIndex=Math.max(acIndex-1,0);renderMatches();}
+    else if(e.key==="Enter"){e.preventDefault();if(acIndex>=0)pick(acMatches[acIndex]);}
+    else if(e.key==="Escape"){acMatches=[];acList.classList.add("hidden");}
+  };
+  search.onblur=function(){setTimeout(function(){acList.classList.add("hidden");},150);};
+  qty.oninput=updatePreview;
+  document.getElementById("addFood").onclick=function(){
+    if(!selectedFood){alert("Choisis un aliment dans la liste.");return;}
+    var q=parseFloat(qty.value)||0;
+    if(q<=0){alert("Indique une quantite.");return;}
+    var f=q/100,ml=getDay().meals.slice();
+    ml.push({name:selectedFood.n+" ("+q+" g)",qty:q,
+      kcal:Math.round(selectedFood.kcal*f),protein:Math.round(selectedFood.p*f)});
+    selectedFood=null;setDay({meals:ml});
+  };
+}
+function shiftDate(delta){
+  var d=new Date(state.activeDate+"T00:00:00");d.setDate(d.getDate()+delta);
+  var nk=todayKey(d);if(nk>todayKey())return;state.activeDate=nk;renderTracker();
+}
+function renderTkPoids(){
+  var sorted=state.weights.slice().sort(function(a,b){return a.date.localeCompare(b.date);});
+  var h='<div class="tk-card"><div class="tk-sect">Mon poids du jour</div>'+
+    '<div class="tk-row"><input type="number" id="wInput" placeholder="kg" />'+
+    '<button class="tk-btn" id="addWeight">Enregistrer</button></div>'+
+    '<div class="tk-muted">Le matin a jeun, 1-2 fois par semaine pour une tendance fiable.</div></div>';
+  if(sorted.length>0){
+    var first=sorted[0],last=sorted[sorted.length-1],delta=last.kg-first.kg;
+    var kgs=sorted.map(function(w){return w.kg;});
+    var mx=Math.max.apply(null,kgs),mn=Math.min.apply(null,kgs),range=(mx-mn)||1;
+    h+='<div class="tk-card"><div class="tk-sect">Evolution</div>'+
+      '<div style="display:flex;gap:16px;margin-bottom:12px">'+
+      '<div><div class="tk-st">Actuel</div><div style="font-family:var(--edito);font-size:19px;font-weight:600">'+last.kg+' kg</div></div>'+
+      '<div><div class="tk-st">Variation</div><div style="font-family:var(--edito);font-size:19px;font-weight:600;color:'+(delta>0?'#5a7d4f':delta<0?'#b5573a':'inherit')+'">'+(delta>0?"+":"")+delta.toFixed(1)+'</div></div></div>'+
+      '<div style="display:flex;align-items:flex-end;gap:3px;height:90px;border-bottom:2px solid var(--fog)">';
+    sorted.forEach(function(w){var ht=12+((w.kg-mn)/range)*68;
+      h+='<div title="'+w.date+' - '+w.kg+'" style="flex:1;min-width:5px;height:'+ht+'px;background:var(--rust);border-radius:4px 4px 0 0"></div>';});
+    h+='</div></div>';
+  }
+  h+='<div class="tk-card"><div class="tk-sect">Historique</div>';
+  if(sorted.length===0)h+='<p class="tk-empty">Aucune pesee.</p>';
+  sorted.slice().reverse().forEach(function(w){
+    h+='<div class="tk-line"><span style="font-size:12.5px;text-transform:capitalize">'+prettyDate(w.date)+'</span>'+
+      '<span><strong style="font-family:var(--edito);font-size:16px">'+w.kg+' kg</strong> '+
+      '<button class="tk-x" data-rmw="'+w.date+'">✕</button></span></div>';
+  });
+  h+='</div>';
+  document.getElementById("tk-poids").innerHTML=h;
+  document.getElementById("addWeight").onclick=function(){
+    var kg=parseFloat(document.getElementById("wInput").value.replace(",","."));
+    if(!kg||kg<30||kg>250){alert("Poids invalide.");return;}
+    var date=todayKey();
+    state.weights=state.weights.filter(function(w){return w.date!==date;});
+    state.weights.push({date:date,kg:kg});save("weights",state.weights);
+    state.profile.weight=kg;save("profile",state.profile);renderTracker();
+  };
+  document.querySelectorAll("[data-rmw]").forEach(function(el){
+    el.onclick=function(){state.weights=state.weights.filter(function(w){return w.date!==el.dataset.rmw;});
+      save("weights",state.weights);renderTracker();};
+  });
+}
+function renderTkProfil(){
+  var p=state.profile,t=computeTargets(p);
+  var group=GOAL_GROUP.perte.indexOf(p.goal)>=0?"perte":GOAL_GROUP.masse.indexOf(p.goal)>=0?"masse":"maintien";
+  var h='<div class="tk-card"><div class="tk-sect">Mon objectif</div>'+
+    '<div class="tk-seg">'+
+    '<button class="'+(group==="perte"?"on":"")+'" data-group="perte">Perdre</button>'+
+    '<button class="'+(group==="maintien"?"on":"")+'" data-group="maintien">Maintien</button>'+
+    '<button class="'+(group==="masse"?"on":"")+'" data-group="masse">Masse</button></div>';
+  if(group!=="maintien"){
+    h+='<label>Intensite</label><select id="pGoalDetail">';
+    GOAL_GROUP[group].forEach(function(gk){h+='<option value="'+gk+'" '+(p.goal===gk?"selected":"")+'>'+GOALS[gk].label+'</option>';});
+    h+='</select>';
+  }
+  h+='<div class="tk-muted" style="margin-top:8px">'+t.advice+'</div></div>';
+  h+='<div class="tk-card"><div class="tk-sect">Mes infos</div>'+
+    '<label>Prenom</label><input id="pName" value="'+esc(p.name)+'" placeholder="ton prenom" />'+
+    '<div class="tk-row" style="margin-top:9px">'+
+    '<div style="flex:1"><label>Age</label><input type="number" id="pAge" value="'+p.age+'" /></div>'+
+    '<div style="flex:1"><label>Sexe</label><select id="pSex">'+
+    '<option value="homme" '+(p.sex==="homme"?"selected":"")+'>Homme</option>'+
+    '<option value="femme" '+(p.sex==="femme"?"selected":"")+'>Femme</option></select></div></div>'+
+    '<div class="tk-row">'+
+    '<div style="flex:1"><label>Poids (kg)</label><input type="number" id="pWeight" value="'+p.weight+'" /></div>'+
+    '<div style="flex:1"><label>Taille (cm)</label><input type="number" id="pHeight" value="'+p.height+'" /></div></div>'+
+    '<label>Activite (hors sport)</label><select id="pActivity">';
+  Object.keys(ACTIVITY).forEach(function(k){h+='<option value="'+k+'" '+(p.activity===k?"selected":"")+'>'+ACTIVITY[k].label+'</option>';});
+  h+='</select><button class="tk-btn full" id="saveProfile" style="margin-top:12px">Enregistrer</button></div>';
+  h+='<div class="tk-card dark">'+
+    '<div class="tk-st" style="opacity:.6;margin-bottom:8px">Cibles calculees</div>'+
+    '<div style="display:flex;flex-wrap:wrap;gap:14px">'+
+    tkStat("Maintenance",t.maintenance+" kcal")+tkStat("Objectif/jour",t.calories+" kcal")+
+    tkStat("Proteines",t.protein+" g")+tkStat("Glucides",t.carbs+" g")+'</div></div>';
+  h+='<div class="tk-card"><div class="tk-sect">Sauvegarde</div>'+
+    '<p class="tk-muted" style="margin-bottom:10px">Telecharge un fichier de secours pour ne rien perdre.</p>'+
+    '<div class="tk-row"><button class="tk-btn ghost" style="flex:1" id="exportData">Telecharger</button>'+
+    '<button class="tk-btn ghost" style="flex:1" id="importData">Restaurer</button></div>'+
+    '<input type="file" id="importFile" accept="application/json" class="hidden" /></div>';
+  h+='<p class="tk-muted" style="text-align:center">Outil de suivi personnel — ne remplace pas un professionnel de sante.</p>';
+  document.getElementById("tk-profil").innerHTML=h;
+  document.querySelectorAll("[data-group]").forEach(function(el){
+    el.onclick=function(){state.profile.goal=GOAL_GROUP[el.dataset.group][0];
+      save("profile",state.profile);renderTracker();};});
+  var gd=document.getElementById("pGoalDetail");
+  if(gd)gd.onchange=function(){state.profile.goal=gd.value;save("profile",state.profile);renderTracker();};
+  document.getElementById("saveProfile").onclick=function(){
+    state.profile.name=document.getElementById("pName").value.trim();
+    state.profile.age=+document.getElementById("pAge").value||24;
+    state.profile.sex=document.getElementById("pSex").value;
+    state.profile.weight=+document.getElementById("pWeight").value||68;
+    state.profile.height=+document.getElementById("pHeight").value||172;
+    state.profile.activity=document.getElementById("pActivity").value;
+    save("profile",state.profile);renderTracker();
+  };
+  document.getElementById("exportData").onclick=function(){
+    var data={profile:state.profile,days:state.days,weights:state.weights,
+      customFoods:state.customFoods,recettes:state.recettes,journal:state.journal,
+      _saved:new Date().toISOString()};
+    var blob=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});
+    var a=document.createElement("a");a.href=URL.createObjectURL(blob);
+    a.download="cold-feet-sauvegarde-"+todayKey()+".json";a.click();
+  };
+  document.getElementById("importData").onclick=function(){document.getElementById("importFile").click();};
+  document.getElementById("importFile").onchange=function(e){
+    var file=e.target.files[0];if(!file)return;
+    var reader=new FileReader();
+    reader.onload=function(){
+      try{
+        var d=JSON.parse(reader.result);
+        if(!confirm("Restaurer cette sauvegarde ? Tes donnees actuelles seront remplacees."))return;
+        if(d.profile){state.profile=migrateProfile(d.profile);save("profile",state.profile);}
+        if(d.days){state.days=d.days;save("days",state.days);}
+        if(d.weights){state.weights=d.weights;save("weights",state.weights);}
+        if(d.customFoods){state.customFoods=d.customFoods;save("customFoods",state.customFoods);}
+        if(d.recettes){state.recettes=d.recettes;saveRecettes();}
+        if(d.journal){state.journal=d.journal;saveJournal();}
+        alert("Restauree !");renderTracker();renderRecipes();renderJournal();
+      }catch(err){alert("Fichier invalide.");}
+    };
+    reader.readAsText(file);
+  };
+}
+function tkStat(label,val){
+  return '<div style="flex:1 1 40%"><div class="tk-st" style="opacity:.55">'+label+'</div>'+
+    '<div style="font-family:var(--edito);font-size:19px;font-weight:600;color:#f6e9c8">'+val+'</div></div>';
+}
+
+/* ================ INIT ================ */
+document.querySelectorAll("[data-go]").forEach(function(el){
+  el.onclick=function(){var sec=document.getElementById(el.dataset.go);if(sec)sec.scrollIntoView({behavior:"smooth"});};
+});
+document.querySelectorAll(".tk-nav button").forEach(function(b){
+  b.onclick=function(){state.tkTab=b.dataset.tk;renderTracker();};
+});
+/* triple-clic logo : si pas admin -> code ; si admin -> menu (kitchen / private log) */
+document.getElementById("logo").onclick=function(){
+  this._ct=(this._ct||0)+1;clearTimeout(this._tt);var self=this;
+  this._tt=setTimeout(function(){self._ct=0;},600);
+  if(this._ct>=3){this._ct=0;
+    if(state.isAdmin){state.modal="adminMenu";renderModal();}
+    else{state.modal="code";renderModal();}
+  }
+};
+document.getElementById("closeTracker").onclick=function(){
+  document.getElementById("trackerPanel").classList.remove("on");
+  document.body.style.overflow="";
+};
+if(location.hash.indexOf("#recipe-")===0){
+  var ri=parseInt(location.hash.replace("#recipe-",""),10);
+  if(!isNaN(ri))state.openRecipe=ri;
+}
+renderJournal();
+renderSpots();
+renderRecipes();
+if(state.openRecipe>=0){
+  setTimeout(function(){var el=document.getElementById("recipe-"+state.openRecipe);
+    if(el)el.scrollIntoView({behavior:"smooth"});},300);
+}
+</script>
+</body>
+</html>
